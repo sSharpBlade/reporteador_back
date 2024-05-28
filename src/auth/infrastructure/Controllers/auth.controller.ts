@@ -1,13 +1,13 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { LoginDto } from './dto/login.dto';
+import { LoginDto } from '../../application/dto/login.dto';
 // import { RegisterDto } from './dto/register.dto';
-import { AuthService } from './auth.service';
+import { AuthService } from '../../domain/servies/auth.service';
 import { Get, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from '../../application/guards/auth.guard';
 import { Request } from 'express';
-import { Roles } from './Decorators/roles.decorator';
-import { RolesGuard } from './guards/roles.guard';
-import { Role } from './enums/role.enum';
+import { Roles } from '../../application/Decorators/roles.decorator';
+import { RolesGuard } from '../../application/guards/roles.guard';
+import { Role } from '../../application/enums/role.enum';
 
 interface RequestWhitUser extends Request {
   user: {
