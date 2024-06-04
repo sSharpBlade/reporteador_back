@@ -2,17 +2,15 @@ import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { LoginDto } from '../../application/dto/login.dto';
 // import { RegisterDto } from './dto/register.dto';
 import { AuthService } from '../../domain/servies/auth.service';
-import { Get, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '../../application/guards/auth.guard';
+import { Get, Req } from '@nestjs/common';
 import { Request } from 'express';
-import { Roles } from '../../application/Decorators/roles.decorator';
-import { RolesGuard } from '../../application/guards/roles.guard';
-import { Role } from '../../application/enums/role.enum';
+import { Role } from '../../../common/enums/role.enum';
+import { Auth } from 'src/auth/application/Decorators/auth.decorator';
 
 interface RequestWhitUser extends Request {
   user: {
     email: string;
-    role: string;
+    roles: string;
   };
 }
 
@@ -33,9 +31,10 @@ export class AuthController {
   }
 
   @Get('profile')
-  @Roles(Role.ADMIN)
-  @UseGuards(AuthGuard, RolesGuard)
-  profile(@Req() req: RequestWhitUser) {
-    return this.authService.profile(req.user);
+  @Auth(Role.ADMIN)
+  async profile(@Req() req: RequestWhitUser) {
+    const { email, roles } = req.user;
+    console.log(email, roles);
+    return await this.authService.profile({ email, role: roles[0] });
   }
 }
