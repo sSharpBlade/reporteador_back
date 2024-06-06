@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersController } from '../controllers/users.controller';
 import { UsersService } from '../../domain/services/users.service';
@@ -9,6 +9,7 @@ import { Menu } from '../../../common/entities/Menu';
 import { RoleMenu } from '../../../common/entities/RoleMenu';
 import { Permission } from '../../../common/entities/Permission';
 import { MenuPermission } from '../../../common/entities/MenuPermission';
+import { AuthModule } from '../../../auth/infrastructure/Modules/auth.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { MenuPermission } from '../../../common/entities/MenuPermission';
       Permission,
       MenuPermission,
     ]),
+    forwardRef(() => AuthModule),
   ],
   controllers: [UsersController],
   providers: [UsersService],
