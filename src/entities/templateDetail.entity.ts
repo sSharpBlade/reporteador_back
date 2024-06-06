@@ -1,5 +1,5 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
-import { Template } from "./Template";
+import { Template } from "./template.entity";
 
 @Index("template_detail_pkey", ["idTemplated"], { unique: true })
 @Entity("template_detail", { schema: "public" })

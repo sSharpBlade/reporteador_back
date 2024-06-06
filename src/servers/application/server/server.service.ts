@@ -2,7 +2,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { ServerRepository } from '../../infraestructure/repositories/server.repository';
-import { Server } from '../../domain/entities/Server';
+import { Server } from '../../domain/entities/server.entity';
 
 @Injectable()
 export class ServerService {

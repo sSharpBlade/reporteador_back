@@ -1,5 +1,5 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
-import { Query } from "../../../entities/Query";
+import { Query } from "../../../entities/query.entity";
 
 @Index("server_pkey", ["idServer"], { unique: true })
 @Entity("server", { schema: "public" })

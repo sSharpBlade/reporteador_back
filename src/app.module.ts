@@ -8,6 +8,7 @@ import { ServersModule } from './servers/servers.module';
   imports: [
     AuthModule,
     UsersModule,
+    ServersModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'ep-delicate-wind-a52odiy4.us-east-2.aws.neon.tech',
@@ -16,7 +17,7 @@ import { ServersModule } from './servers/servers.module';
       password: 's6trIamd8BQA',
       database: 'reporteador',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: false,
       ssl: {
         rejectUnauthorized: false, // Esto puede ser necesario si no tienes un certificado SSL válido
       },

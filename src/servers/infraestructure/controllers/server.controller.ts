@@ -2,7 +2,7 @@
 
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
 import { ServerService } from '../../application/server/server.service';
-import { Server } from '../../domain/entities/Server';
+import { Server } from '../../domain/entities/server.entity';
 
 @Controller('servers')
 export class ServerController {
