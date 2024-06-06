@@ -4,6 +4,7 @@ import { Controller, Get, Post, Put, Delete, Param, Body, HttpException, HttpSta
 import { ServerService } from '../../application/server/server.service';
 import { Server } from '../../domain/entities/server.entity';
 import { CreateServerDto } from '../../application/dto/create-server.dto'; // Importa el DTO creado
+import { UpdateServerDto } from 'src/servers/application/dto/update-server.dto';
 
 
 @Controller('servers')
@@ -41,8 +42,8 @@ export class ServerController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() server: Server): Promise<void> {
-    return this.serverService.update(id, server);
+  async update(@Param('id') id: number, @Body() updateServerDto: UpdateServerDto): Promise<Server> {
+    return this.serverService.update(id, updateServerDto);
   }
 
   @Delete(':id')

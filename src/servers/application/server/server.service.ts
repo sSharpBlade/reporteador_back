@@ -3,6 +3,7 @@
 import { Injectable } from '@nestjs/common';
 import { ServerRepository } from '../../infraestructure/repositories/server.repository';
 import { Server } from '../../domain/entities/server.entity';
+import { UpdateServerDto } from '../dto/update-server.dto';
 
 @Injectable()
 export class ServerService {
@@ -20,8 +21,11 @@ export class ServerService {
     return this.serverRepository.create(server);
   }
 
-  async update(id: number, server: Server): Promise<void> {
-    return this.serverRepository.update(id, server);
+  async update(id: number, updateServerDto: UpdateServerDto): Promise<Server> {
+    const server = await this.findOne(id);
+    Object.assign(server, updateServerDto);
+    return this.serverRepository.save(server);
+    
   }
 
   async remove(id: number): Promise<void> {

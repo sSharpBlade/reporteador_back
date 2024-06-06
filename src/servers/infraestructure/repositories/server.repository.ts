@@ -31,4 +31,9 @@ export class ServerRepository {
   async remove(id: number): Promise<void> {
     await this.serverRepo.delete(id);
   }
+
+  async save(server: Server): Promise<Server> {
+    return this.serverRepo.save(server);
+  }
 }
+
