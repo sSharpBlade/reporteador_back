@@ -30,7 +30,7 @@ export class AuthController {
   @Get('profile')
   @Auth(Role.ADMIN)
   async profile(@ActiveUser() user: UserActiveInterface) {
-    const { email, role } = user;
-    return await this.authService.profile({ email, role: role[0] });
+    const { email } = user;
+    return await this.authService.profile({ email });
   }
 }
