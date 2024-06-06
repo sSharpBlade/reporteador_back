@@ -1,8 +1,10 @@
 // src/servers/interfaces/server.controller.ts
 
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { ServerService } from '../../application/server/server.service';
 import { Server } from '../../domain/entities/server.entity';
+import { CreateServerDto } from '../../application/dto/create-server.dto'; // Importa el DTO creado
+
 
 @Controller('servers')
 export class ServerController {
@@ -19,8 +21,23 @@ export class ServerController {
   }
 
   @Post()
-  async create(@Body() server: Server): Promise<Server> {
-    return this.serverService.create(server);
+  async create(@Body() createServerDto: CreateServerDto): Promise<Server> {
+    try {
+      // Crear una instancia de Server y asignar los valores del DTO
+      const server = new Server();
+      server.name = createServerDto.name;
+      server.url = createServerDto.url;
+      server.password = createServerDto.password;
+      server.users = createServerDto.users;
+      server.type = createServerDto.type;
+      // Asigna otros valores aquí si es necesario
+      
+      // Llama al método create del servicio pasando la instancia de Server
+      return this.serverService.create(server);
+    } catch (error) {
+      // Manejo de errores
+      throw new HttpException('Could not create server', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Put(':id')

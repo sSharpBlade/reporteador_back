@@ -1,10 +1,10 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
+import { Column, Entity, Index, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Query } from "../../../entities/query.entity";
 
 @Index("server_pkey", ["idServer"], { unique: true })
 @Entity("server", { schema: "public" })
 export class Server {
-  @Column("integer", { primary: true, name: "id_server" })
+  @PrimaryGeneratedColumn({ name: "id_server" })
   idServer: number;
 
   @Column("character varying", { name: "name" })
