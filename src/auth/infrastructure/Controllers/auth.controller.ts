@@ -1,12 +1,12 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { LoginDto } from '../../application/dto/login.dto';
 // import { RegisterDto } from './dto/register.dto';
-import { AuthService } from '../../domain/servies/auth.service';
+import { AuthService } from '../../domain/services/auth.service';
 import { Get } from '@nestjs/common';
 import { Role } from '../../../common/enums/role.enum';
-import { Auth } from 'src/auth/application/Decorators/auth.decorator';
-import { ActiveUser } from 'src/common/decorators/activeUser.decorator';
-import { UserActiveInterface } from 'src/common/interfaces/userActive.interface';
+import { Auth } from '../../../auth/application/Decorators/auth.decorator';
+import { ActiveUser } from '../../../common/decorators/activeUser.decorator';
+import { UserActiveInterface } from '../../../common/interfaces/userActive.interface';
 
 @Controller('auth')
 export class AuthController {

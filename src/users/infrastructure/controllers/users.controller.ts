@@ -10,8 +10,8 @@ import {
 import { UsersService } from '../../domain/services/users.service';
 import { CreateUserDto } from '../../application/dto/create-user.dto';
 import { UpdateUserDto } from '../../application/dto/update-user.dto';
-import { Auth } from 'src/auth/application/Decorators/auth.decorator';
-import { Role } from 'src/common/enums/role.enum';
+import { Auth } from '../../../auth/application/Decorators/auth.decorator';
+import { Role } from '../../../common/enums/role.enum';
 
 @Auth(Role.ADMIN)
 @Controller('users')
