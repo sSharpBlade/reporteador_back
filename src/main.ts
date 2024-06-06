@@ -14,6 +14,11 @@ async function bootstrap() {
     }),
   );
 
+  app.enableCors({
+    methods: ['GET', 'PUT', 'PATCH', 'DELETE', 'POST', 'HEAD'],
+    credentials: true,
+  });
+
   const config = new DocumentBuilder()
     .setTitle('Documentación con Swagger')
     .setDescription('Proyecto de Patrones de Software')
