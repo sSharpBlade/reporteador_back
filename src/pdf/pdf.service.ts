@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const PDFDocument = require('pdfkit-table');
 
+import * as ExcelJS from 'exceljs';
+
 @Injectable()
 export class PdfService {
   async generarPDF(columns: string[], rows: any[]): Promise<Buffer> {
@@ -60,5 +62,16 @@ export class PdfService {
     });
 
     return pdfBuffer;
+  }
+
+  async generarExcel(columns: string[], rows: any[]): Promise<Buffer> {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Resultados');
+
+    worksheet.columns = columns.map((col) => ({ header: col, key: col }));
+    rows.forEach((row) => worksheet.addRow(row));
+
+    const buffer: any = await workbook.xlsx.writeBuffer();
+    return Buffer.from(buffer);
   }
 }
