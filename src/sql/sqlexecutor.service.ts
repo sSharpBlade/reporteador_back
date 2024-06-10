@@ -6,7 +6,10 @@ import { Connection } from 'typeorm';
 export class SqlExecutorService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async executeQuery(connectionId: number, query: string): Promise<any> {
+  async executeQuery(
+    connectionId: number,
+    query: string,
+  ): Promise<{ columns: string[]; rows: any[] }> {
     const connection: Connection =
       await this.databaseService.getDatabaseConnection(connectionId);
 

@@ -9,5 +9,6 @@ import { SqlController } from './sql.controller';
   imports: [TypeOrmModule.forFeature([DatabaseConnection])],
   providers: [DatabaseService, SqlExecutorService],
   controllers: [SqlController],
+  exports: [SqlExecutorService],
 })
 export class SqlModule {}
