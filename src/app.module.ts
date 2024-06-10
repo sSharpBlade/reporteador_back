@@ -1,3 +1,4 @@
+import { PdfModule } from './pdf/pdf.module';
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/infrastructure/Modules/auth.module';
 import { UsersModule } from './users/infrastructure/modules/users.module';
@@ -7,6 +8,7 @@ import { SqlModule } from './sql/sql.module';
 
 @Module({
   imports: [
+    PdfModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
