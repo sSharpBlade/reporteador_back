@@ -1,4 +1,4 @@
-import { PdfModule } from './pdf/pdf.module';
+import { PdfModule } from './files/file.module';
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/infrastructure/Modules/auth.module';
 import { UsersModule } from './users/infrastructure/modules/users.module';

@@ -1,12 +1,12 @@
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { SqlExecutorService } from 'src/sql/sqlexecutor.service';
-import { PdfService } from './pdf.service';
+import { FileService } from './file.service';
 
-@Controller('pdf')
-export class PdfController {
+@Controller('file')
+export class FileController {
   constructor(
     private readonly sqlExecutorService: SqlExecutorService,
-    private readonly pdfService: PdfService,
+    private readonly pdfService: FileService,
   ) {}
 
   @Post()
@@ -19,7 +19,7 @@ export class PdfController {
       connectionId,
       query,
     );
-    const buffer = await this.pdfService.generarPDF(columns, rows);
+    const buffer = await this.pdfService.generatePDF(columns, rows);
 
     res.set({
       'Content-Type': 'application/pdf',

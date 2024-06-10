@@ -14,8 +14,8 @@ import {
 } from 'docx';
 
 @Injectable()
-export class PdfService {
-  async generarPDF(columns: string[], rows: any[]): Promise<Buffer> {
+export class FileService {
+  async generatePDF(columns: string[], rows: any[]): Promise<Buffer> {
     const pdfBuffer: Buffer = await new Promise((resolve) => {
       const doc = new PDFDocument({
         size: 'LETTER',
