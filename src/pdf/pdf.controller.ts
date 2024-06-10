@@ -40,12 +40,34 @@ export class PdfController {
       connectionId,
       query,
     );
-    const buffer = await this.pdfService.generarExcel(columns, rows);
+    const buffer = await this.pdfService.generateExcel(columns, rows);
 
     res.set({
       'Content-Type':
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'Content-Disposition': 'attachment; filename=example.xlsx',
+      'Content-Length': buffer.length,
+    });
+
+    res.end(buffer);
+  }
+
+  @Post('word')
+  async downloadWord(
+    @Body() body: { connectionId: number; query: string },
+    @Res() res,
+  ): Promise<void> {
+    const { connectionId, query } = body;
+    const { columns, rows } = await this.sqlExecutorService.executeQuery(
+      connectionId,
+      query,
+    );
+    const buffer = await this.pdfService.generateWord(columns, rows);
+
+    res.set({
+      'Content-Type':
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'Content-Disposition': 'attachment; filename=example.docx',
       'Content-Length': buffer.length,
     });
 

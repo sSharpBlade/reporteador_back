@@ -3,6 +3,15 @@ import { Injectable } from '@nestjs/common';
 const PDFDocument = require('pdfkit-table');
 
 import * as ExcelJS from 'exceljs';
+import {
+  Document,
+  Packer,
+  Paragraph,
+  Table,
+  TableRow,
+  TableCell,
+  WidthType,
+} from 'docx';
 
 @Injectable()
 export class PdfService {
@@ -64,7 +73,7 @@ export class PdfService {
     return pdfBuffer;
   }
 
-  async generarExcel(columns: string[], rows: any[]): Promise<Buffer> {
+  async generateExcel(columns: string[], rows: any[]): Promise<Buffer> {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Resultados');
 
@@ -73,5 +82,48 @@ export class PdfService {
 
     const buffer: any = await workbook.xlsx.writeBuffer();
     return Buffer.from(buffer);
+  }
+
+  async generateWord(columns: string[], rows: any[]): Promise<Buffer> {
+    const doc = new Document({
+      sections: [
+        {
+          properties: {},
+          children: [
+            new Paragraph({
+              text: 'Resultado de la Consulta SQL',
+              heading: 'Heading1',
+            }),
+            new Table({
+              width: {
+                size: 100,
+                type: WidthType.PERCENTAGE,
+              },
+              rows: [
+                new TableRow({
+                  children: columns.map(
+                    (col) => new TableCell({ children: [new Paragraph(col)] }),
+                  ),
+                }),
+                ...rows.map(
+                  (row) =>
+                    new TableRow({
+                      children: columns.map(
+                        (col) =>
+                          new TableCell({
+                            children: [new Paragraph(row[col])],
+                          }),
+                      ),
+                    }),
+                ),
+              ],
+            }),
+          ],
+        },
+      ],
+    });
+
+    const buffer: Buffer = await Packer.toBuffer(doc);
+    return buffer;
   }
 }
