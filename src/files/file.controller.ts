@@ -6,10 +6,10 @@ import { FileService } from './file.service';
 export class FileController {
   constructor(
     private readonly sqlExecutorService: SqlExecutorService,
-    private readonly pdfService: FileService,
+    private readonly fileService: FileService,
   ) {}
 
-  @Post()
+  @Post('pdf')
   async downloadPDF(
     @Body() body: { connectionId: number; query: string },
     @Res() res,
@@ -19,7 +19,7 @@ export class FileController {
       connectionId,
       query,
     );
-    const buffer = await this.pdfService.generatePDF(columns, rows);
+    const buffer = await this.fileService.generatePDF(columns, rows);
 
     res.set({
       'Content-Type': 'application/pdf',
@@ -40,7 +40,7 @@ export class FileController {
       connectionId,
       query,
     );
-    const buffer = await this.pdfService.generateExcel(columns, rows);
+    const buffer = await this.fileService.generateExcel(columns, rows);
 
     res.set({
       'Content-Type':
@@ -62,7 +62,7 @@ export class FileController {
       connectionId,
       query,
     );
-    const buffer = await this.pdfService.generateWord(columns, rows);
+    const buffer = await this.fileService.generateWord(columns, rows);
 
     res.set({
       'Content-Type':

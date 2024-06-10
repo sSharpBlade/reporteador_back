@@ -108,12 +108,15 @@ export class FileService {
                 ...rows.map(
                   (row) =>
                     new TableRow({
-                      children: columns.map(
-                        (col) =>
-                          new TableCell({
-                            children: [new Paragraph(row[col])],
-                          }),
-                      ),
+                      children: columns.map((col) => {
+                        let value = row[col];
+                        if (typeof value !== 'string') {
+                          value = String(value);
+                        }
+                        return new TableCell({
+                          children: [new Paragraph(value)],
+                        });
+                      }),
                     }),
                 ),
               ],
