@@ -3,6 +3,7 @@ import { AuthModule } from './auth/infrastructure/Modules/auth.module';
 import { UsersModule } from './users/infrastructure/modules/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { SqlModule } from './sql/sql.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { ConfigModule } from '@nestjs/config';
     }),
     AuthModule,
     UsersModule,
+    SqlModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
