@@ -11,15 +11,19 @@ export class FileController {
 
   @Post('pdf')
   async downloadPDF(
-    @Body() body: { connectionId: number; query: string },
+    @Body() body: { connectionId: number; query: string; templateId: number },
     @Res() res,
   ): Promise<void> {
-    const { connectionId, query } = body;
+    const { connectionId, query, templateId } = body;
     const { columns, rows } = await this.sqlExecutorService.executeQuery(
       connectionId,
       query,
     );
-    const buffer = await this.fileService.generatePDF(columns, rows);
+    const buffer = await this.fileService.generatePDF(
+      columns,
+      rows,
+      templateId,
+    );
 
     res.set({
       'Content-Type': 'application/pdf',
@@ -54,15 +58,19 @@ export class FileController {
 
   @Post('word')
   async downloadWord(
-    @Body() body: { connectionId: number; query: string },
+    @Body() body: { connectionId: number; query: string; templateId },
     @Res() res,
   ): Promise<void> {
-    const { connectionId, query } = body;
+    const { connectionId, query, templateId } = body;
     const { columns, rows } = await this.sqlExecutorService.executeQuery(
       connectionId,
       query,
     );
-    const buffer = await this.fileService.generateWord(columns, rows);
+    const buffer = await this.fileService.generateWord(
+      columns,
+      rows,
+      templateId,
+    );
 
     res.set({
       'Content-Type':

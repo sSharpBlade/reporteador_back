@@ -1,14 +1,15 @@
-import { PdfModule } from './files/file.module';
+import { FileModule } from './files/file.module';
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/infrastructure/Modules/auth.module';
 import { UsersModule } from './users/infrastructure/modules/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { SqlModule } from './sql/sql.module';
+import { TemplateModule } from './template/template.module';
 
 @Module({
   imports: [
-    PdfModule,
+    FileModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -32,6 +33,7 @@ import { SqlModule } from './sql/sql.module';
             : null,
       },
     }),
+    TemplateModule,
   ],
   controllers: [],
   providers: [],

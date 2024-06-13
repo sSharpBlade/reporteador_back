@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { TemplateService } from 'src/template/template.service';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const PDFDocument = require('pdfkit-table');
-
 import * as ExcelJS from 'exceljs';
 import {
   Document,
@@ -11,11 +11,26 @@ import {
   TableRow,
   TableCell,
   WidthType,
+  Media,
+  Header,
+  ImageRun,
 } from 'docx';
 
 @Injectable()
 export class FileService {
-  async generatePDF(columns: string[], rows: any[]): Promise<Buffer> {
+  constructor(private readonly templateService: TemplateService) {}
+
+  async generatePDF(
+    columns: string[],
+    rows: any[],
+    templateId: number,
+  ): Promise<Buffer> {
+    const templateData = await this.templateService.getPlantilla(templateId);
+
+    if (!templateData) {
+      throw new Error(`Template with id ${templateId} not found`);
+    }
+
     const pdfBuffer: Buffer = await new Promise((resolve) => {
       const doc = new PDFDocument({
         size: 'LETTER',
@@ -26,10 +41,20 @@ export class FileService {
       let pageNumber = 0;
       doc.on('pageAdded', () => {
         pageNumber++;
+        doc.image(templateData.logo, 50, 5, {
+          fit: [45, 45],
+          align: 'center',
+        });
+
         doc
           .moveTo(50, 55)
           .lineTo(doc.page.width - 50, 55)
           .stroke();
+
+        doc.text('', 50, 15);
+        doc.fontSize(20).text(templateData.titulo, { align: 'center' });
+        doc.text('', 50, 40);
+        doc.fontSize(10).text(templateData.descripcion, { align: 'center' });
 
         const bottom = doc.page.margins.bottom;
 
@@ -48,18 +73,14 @@ export class FileService {
       });
 
       doc.addPage();
-      doc.text('', 50, 100);
-      doc.text('PDF Generado en nuestro servidor');
-      doc.moveDown();
-      doc.text('Esto es un ejemplo de como generar un pdf en nuestro servidor');
 
+      doc.text('', 50, 75);
       const table = {
-        title: 'Resultado de la Consulta SQL',
         headers: columns,
         rows: rows.map((row) => columns.map((col) => row[col])),
       };
 
-      doc.table(table, { columnSize: columns.map(() => 150) });
+      doc.table(table);
 
       const buffer = [];
       doc.on('data', buffer.push.bind(buffer));
@@ -84,16 +105,39 @@ export class FileService {
     return Buffer.from(buffer);
   }
 
-  async generateWord(columns: string[], rows: any[]): Promise<Buffer> {
+  async generateWord(
+    columns: string[],
+    rows: any[],
+    templateId: number,
+  ): Promise<Buffer> {
+    const templateData = await this.templateService.getPlantilla(templateId);
+
+    if (!templateData) {
+      throw new Error(`Template with id ${templateId} not found`);
+    }
+
+    const imageBuffer = Buffer.from(templateData.logo, 'base64');
+
     const doc = new Document({
       sections: [
         {
           properties: {},
-          children: [
-            new Paragraph({
-              text: 'Resultado de la Consulta SQL',
-              heading: 'Heading1',
+          headers: {
+            default: new Header({
+              children: [
+                new Paragraph({
+                  text: templateData.titulo,
+                  heading: 'Heading1',
+                  alignment: 'center',
+                }),
+                new Paragraph({
+                  text: templateData.descripcion,
+                  alignment: 'center',
+                }),
+              ],
             }),
+          },
+          children: [
             new Table({
               width: {
                 size: 100,
