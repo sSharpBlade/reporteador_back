@@ -3,7 +3,7 @@ import { AuthModule } from './auth/infrastructure/Modules/auth.module';
 import { UsersModule } from './users/infrastructure/modules/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ServersModule } from './servers/servers.module';
-import { TemplateModule } from './template/infrastructure/modules/template.module';
+
 
 @Module({
   imports: [
@@ -24,7 +24,6 @@ import { TemplateModule } from './template/infrastructure/modules/template.modul
       },
     }),
     TypeOrmModule.forFeature([ServersModule]),
-    TemplateModule,
     
   ],
   controllers: [],
