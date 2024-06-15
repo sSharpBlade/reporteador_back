@@ -11,10 +11,9 @@ import {
   TableRow,
   TableCell,
   WidthType,
-  Media,
   Header,
-  ImageRun,
 } from 'docx';
+import logo from 'src/common/logo';
 
 @Injectable()
 export class FileService {
@@ -25,7 +24,7 @@ export class FileService {
     rows: any[],
     templateId: number,
   ): Promise<Buffer> {
-    const templateData = await this.templateService.getPlantilla(templateId);
+    const templateData = await this.templateService.getTemplate(templateId);
 
     if (!templateData) {
       throw new Error(`Template with id ${templateId} not found`);
@@ -37,6 +36,10 @@ export class FileService {
         bufferPages: true,
         autoFirstPage: false,
       });
+
+      if (templateData.logo == null) {
+        templateData.logo = logo;
+      }
 
       let pageNumber = 0;
       doc.on('pageAdded', () => {
@@ -52,9 +55,9 @@ export class FileService {
           .stroke();
 
         doc.text('', 50, 15);
-        doc.fontSize(20).text(templateData.titulo, { align: 'center' });
+        doc.fontSize(20).text(templateData.title, { align: 'center' });
         doc.text('', 50, 40);
-        doc.fontSize(10).text(templateData.descripcion, { align: 'center' });
+        doc.fontSize(10).text(templateData.description, { align: 'center' });
 
         const bottom = doc.page.margins.bottom;
 
@@ -110,13 +113,13 @@ export class FileService {
     rows: any[],
     templateId: number,
   ): Promise<Buffer> {
-    const templateData = await this.templateService.getPlantilla(templateId);
+    const templateData = await this.templateService.getTemplate(templateId);
 
     if (!templateData) {
       throw new Error(`Template with id ${templateId} not found`);
     }
 
-    const imageBuffer = Buffer.from(templateData.logo, 'base64');
+    //const imageBuffer = Buffer.from(templateData.logo, 'base64');
 
     const doc = new Document({
       sections: [
@@ -126,12 +129,12 @@ export class FileService {
             default: new Header({
               children: [
                 new Paragraph({
-                  text: templateData.titulo,
+                  text: templateData.title,
                   heading: 'Heading1',
                   alignment: 'center',
                 }),
                 new Paragraph({
-                  text: templateData.descripcion,
+                  text: templateData.description,
                   alignment: 'center',
                 }),
               ],
