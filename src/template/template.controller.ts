@@ -15,10 +15,10 @@ import { UpdateTemplateDto } from './dto/update-template.dto';
 export class TemplateController {
   constructor(private readonly templateService: TemplateService) {}
 
-  // @Post()
-  // create(@Body() createTemplateDto: CreateTemplateDto) {
-  //   return this.templateService.create(createTemplateDto);
-  // }
+  @Post()
+  create(@Body() createTemplateDto: CreateTemplateDto) {
+    return this.templateService.create(createTemplateDto);
+  }
 
   @Get()
   findAll() {
@@ -27,13 +27,13 @@ export class TemplateController {
 
   @Get(':id')
   findOne(@Param('id') id: number) {
-    return this.templateService.getPlantilla(id);
+    return this.templateService.getTemplate(id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateTemplateDto: UpdateTemplateDto) {
-  //   return this.templateService.update(+id, updateTemplateDto);
-  // }
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateTemplateDto: UpdateTemplateDto) {
+    return this.templateService.update(+id, updateTemplateDto);
+  }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

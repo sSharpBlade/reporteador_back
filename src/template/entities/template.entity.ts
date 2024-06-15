@@ -6,18 +6,18 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Plantilla {
+export class Template {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  titulo: string;
+  title: string;
 
   @Column()
-  descripcion: string;
+  description: string;
 
-  @Column()
-  logo: string; // Asume que esto es una URL o base64
+  @Column({nullable:true})
+  logo: string;
 
   @DeleteDateColumn()
   deletedAt: Date;
