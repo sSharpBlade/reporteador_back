@@ -1,17 +1,19 @@
-import { IsString } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
 // create-server.dto.ts
 export class CreateServerDto {
     @IsString()
-    name: string;
+    host: string;
+    @IsNumber()
+    port: number;
     @IsString()
-    url: string;
-    @IsString()
-    users: string;
+    username: string;
     @IsString()
     password: string;
     @IsString()
-    type: string;
+    database: string;
+    @IsString()
+    ssl: boolean;
 
     // Otros campos necesarios para crear un servidor
   }

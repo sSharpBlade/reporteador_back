@@ -6,7 +6,7 @@ import {
   ManyToOne,
   OneToMany,
 } from "typeorm";
-import { Server } from "../servers/domain/entities/server.entity";
+import { Server } from "../database/domain/entities/database.entity";
 import { Template } from "./template.entity";
 
 @Index("query_pkey", ["idQuery"], { unique: true })

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/infrastructure/Modules/auth.module';
 import { UsersModule } from './users/infrastructure/modules/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ServersModule } from './servers/servers.module';
+import { ServersModule } from './database/database.module';
 import { TemplateModule } from './template/template.module';
 import { TemplateDetailModule } from './template-detail/template-detail.module';
 
@@ -20,7 +20,7 @@ import { TemplateDetailModule } from './template-detail/template-detail.module';
       password: 's6trIamd8BQA',
       database: 'reporteador',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: false,
+      synchronize: true,
       ssl: {
         rejectUnauthorized: false, // Esto puede ser necesario si no tienes un certificado SSL válido
       },

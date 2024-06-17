@@ -1,10 +1,10 @@
 // src/servers/interfaces/server.controller.ts
 
 import { Controller, Get, Post, Put, Delete, Param, Body, HttpException, HttpStatus } from '@nestjs/common';
-import { ServerService } from '../../application/server/server.service';
-import { Server } from '../../domain/entities/server.entity';
-import { CreateServerDto } from '../../application/dto/create-server.dto'; // Importa el DTO creado
-import { UpdateServerDto } from 'src/servers/application/dto/update-server.dto';
+import { ServerService } from '../../application/service/database.service';
+import { DatabaseConnection } from '../../domain/entities/database.entity';
+import { CreateServerDto } from '../../application/dto/create-database.dto'; // Importa el DTO creado
+import { UpdateServerDto } from 'src/database/application/dto/update-database.dto';
 
 
 @Controller('servers')
@@ -12,25 +12,26 @@ export class ServerController {
   constructor(private readonly serverService: ServerService) {}
 
   @Get()
-  async findAll(): Promise<Server[]> {
+  async findAll(): Promise<DatabaseConnection[]> {
     return this.serverService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number): Promise<Server> {
+  async findOne(@Param('id') id: number): Promise<DatabaseConnection> {
     return this.serverService.findOne(id);
   }
 
   @Post()
-  async create(@Body() createServerDto: CreateServerDto): Promise<Server> {
+  async create(@Body() createServerDto: CreateServerDto): Promise<DatabaseConnection> {
     try {
       // Crear una instancia de Server y asignar los valores del DTO
-      const server = new Server();
-      server.name = createServerDto.name;
-      server.url = createServerDto.url;
+      const server = new DatabaseConnection();
+      server.host = createServerDto.host;
+      server.port = createServerDto.port;
+      server.username = createServerDto.username;
       server.password = createServerDto.password;
-      server.users = createServerDto.users;
-      server.type = createServerDto.type;
+      server.database = createServerDto.database;
+      server.ssl = createServerDto.ssl;
       // Asigna otros valores aquí si es necesario
       
       // Llama al método create del servicio pasando la instancia de Server
@@ -42,7 +43,7 @@ export class ServerController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() updateServerDto: UpdateServerDto): Promise<Server> {
+  async update(@Param('id') id: number, @Body() updateServerDto: UpdateServerDto): Promise<DatabaseConnection> {
     return this.serverService.update(id, updateServerDto);
   }
 
