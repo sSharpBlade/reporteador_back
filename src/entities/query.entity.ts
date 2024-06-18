@@ -6,7 +6,7 @@ import {
   ManyToOne,
   OneToMany,
 } from "typeorm";
-import { Server } from "../database/domain/entities/database.entity";
+import { DatabaseConnection } from "../database/domain/entities/database.entity";
 import { Template } from "./template.entity";
 
 @Index("query_pkey", ["idQuery"], { unique: true })
@@ -18,9 +18,9 @@ export class Query {
   @Column("character varying", { name: "sentence" })
   sentence: string;
 
-  @ManyToOne(() => Server, (server) => server.queries)
-  @JoinColumn([{ name: "id_server", referencedColumnName: "idServer" }])
-  idServer: Server;
+ // @ManyToOne(() => DatabaseConnection, (server) => server.queries)
+  //@JoinColumn([{ name: "id_server", referencedColumnName: "idServer" }])
+  //idServer: DatabaseConnection;
 
   @OneToMany(() => Template, (template) => template.idQuery)
   templates: Template[];

@@ -21,5 +21,5 @@ export class DatabaseConnection {
   database: string;
 
   @Column({ default: false })
-  ssl: boolean;
+  ssl: boolean;
 }
