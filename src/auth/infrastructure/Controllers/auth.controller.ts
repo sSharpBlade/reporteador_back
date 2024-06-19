@@ -1,21 +1,15 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { LoginDto } from '../../application/dto/login.dto';
 // import { RegisterDto } from './dto/register.dto';
-import { AuthService } from '../../domain/servies/auth.service';
-import { Get, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '../../application/guards/auth.guard';
-import { Request } from 'express';
-import { Roles } from '../../application/Decorators/roles.decorator';
-import { RolesGuard } from '../../application/guards/roles.guard';
-import { Role } from '../../application/enums/role.enum';
+import { AuthService } from '../../domain/services/auth.service';
+import { Get } from '@nestjs/common';
+import { Role } from '../../../common/enums/role.enum';
+import { Auth } from '../../../auth/application/Decorators/auth.decorator';
+import { ActiveUser } from '../../../common/decorators/activeUser.decorator';
+import { UserActiveInterface } from '../../../common/interfaces/userActive.interface';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-interface RequestWhitUser extends Request {
-  user: {
-    email: string;
-    role: string;
-  };
-}
-
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -32,10 +26,11 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
+  @ApiBearerAuth()
   @Get('profile')
-  @Roles(Role.ADMIN)
-  @UseGuards(AuthGuard, RolesGuard)
-  profile(@Req() req: RequestWhitUser) {
-    return this.authService.profile(req.user);
+  @Auth(Role.ADMIN)
+  async profile(@ActiveUser() user: UserActiveInterface) {
+    const { email } = user;
+    return await this.authService.profile({ email });
   }
 }

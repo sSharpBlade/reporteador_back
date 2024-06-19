@@ -2,22 +2,25 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../../application/dto/create-user.dto';
-import { User } from '../entities/user.entity';
 import { UpdateUserDto } from '../../application/dto/update-user.dto';
+import { Users } from '../../../common/entities/Users';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
+    @InjectRepository(Users)
+    private readonly usersRepository: Repository<Users>,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
     return await this.usersRepository.save(createUserDto);
   }
 
-  async findOneByEmail(email: string) {
-    return await this.usersRepository.findOneBy({ email });
+  async findOneByEmail(email: string): Promise<Users> {
+    return this.usersRepository.findOne({
+      where: { email },
+      relations: ['roleUsers', 'roleUsers.idRole'],
+    });
   }
 
   async findAll() {
@@ -30,7 +33,7 @@ export class UsersService {
   async update(id: number, updateUserDto: UpdateUserDto) {
     return await this.usersRepository.update(id, updateUserDto);
   }
-  async findOne(id: number) {
-    return await this.usersRepository.findOneBy({ id });
+  async findOne(idUser: number) {
+    return await this.usersRepository.findOneBy({ idUser });
   }
 }
