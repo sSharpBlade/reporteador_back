@@ -1,7 +1,7 @@
 import { FileModule } from './files/file.module';
 import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/infrastructure/Modules/auth.module';
-import { UsersModule } from './users/infrastructure/modules/users.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { SqlModule } from './sql/sql.module';
