@@ -8,6 +8,7 @@ import { ServersModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { SqlModule } from './sql/sql.module';
 import { TemplateModule } from './template/template.module';
+import { DatabaseConnection } from './database/database.entity';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { TemplateModule } from './template/template.module';
       },
     }),
     TemplateModule,
+    ServersModule,
   ],
   controllers: [],
   providers: [],
