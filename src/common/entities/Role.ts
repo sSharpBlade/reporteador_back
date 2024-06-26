@@ -1,5 +1,4 @@
-import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { RoleMenu } from './RoleMenu';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { RoleUser } from './RoleUser';
 
 // @Index("role_pkey", ["idRole"], { unique: true })
@@ -11,8 +10,8 @@ export class Role {
   @Column('character varying', { name: 'name_role' })
   nameRole: string;
 
-  @OneToMany(() => RoleMenu, (roleMenu) => roleMenu.idRole)
-  roleMenus: RoleMenu[];
+  // @OneToMany(() => RoleMenu, (roleMenu) => roleMenu.idRole)
+  // roleMenus: RoleMenu[];
 
   @OneToMany(() => RoleUser, (roleUser) => roleUser.idRole)
   roleUsers: RoleUser[];

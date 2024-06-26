@@ -1,11 +1,12 @@
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { SqlExecutorService } from 'src/sql/sqlexecutor.service';
 import { FileService } from './file.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { FileDto } from './dto/file.dto';
 
 @Controller('file')
 @ApiTags('File')
-@Controller('auth')
+@ApiBearerAuth()
 export class FileController {
   constructor(
     private readonly sqlExecutorService: SqlExecutorService,
@@ -13,10 +14,7 @@ export class FileController {
   ) {}
 
   @Post('pdf')
-  async downloadPDF(
-    @Body() body: { connectionId: number; query: string; templateId: number },
-    @Res() res,
-  ): Promise<void> {
+  async downloadPDF(@Body() body: FileDto, @Res() res): Promise<void> {
     const { connectionId, query, templateId } = body;
     const { columns, rows } = await this.sqlExecutorService.executeQuery(
       connectionId,
@@ -38,10 +36,7 @@ export class FileController {
   }
 
   @Post('excel')
-  async downloadExcel(
-    @Body() body: { connectionId: number; query: string },
-    @Res() res,
-  ): Promise<void> {
+  async downloadExcel(@Body() body: FileDto, @Res() res): Promise<void> {
     const { connectionId, query } = body;
     const { columns, rows } = await this.sqlExecutorService.executeQuery(
       connectionId,
@@ -60,10 +55,7 @@ export class FileController {
   }
 
   @Post('word')
-  async downloadWord(
-    @Body() body: { connectionId: number; query: string; templateId },
-    @Res() res,
-  ): Promise<void> {
+  async downloadWord(@Body() body: FileDto, @Res() res): Promise<void> {
     const { connectionId, query, templateId } = body;
     const { columns, rows } = await this.sqlExecutorService.executeQuery(
       connectionId,

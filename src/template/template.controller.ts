@@ -10,11 +10,11 @@ import {
 import { TemplateService } from './template.service';
 import { CreateTemplateDto } from './dto/create-template.dto';
 import { UpdateTemplateDto } from './dto/update-template.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('template')
 @ApiTags('Template')
-@Controller('auth')
+@ApiBearerAuth()
 export class TemplateController {
   constructor(private readonly templateService: TemplateService) {}
 
@@ -34,7 +34,10 @@ export class TemplateController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTemplateDto: UpdateTemplateDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateTemplateDto: UpdateTemplateDto,
+  ) {
     return this.templateService.update(+id, updateTemplateDto);
   }
 

@@ -80,7 +80,11 @@ export class FileService {
       doc.text('', 50, 75);
       const table = {
         headers: columns,
-        rows: rows.map((row) => columns.map((col) => row[col])),
+        rows: rows.map((row) =>
+          columns.map((col) =>
+            row[col] !== null && row[col] !== undefined ? row[col] : '',
+          ),
+        ),
       };
 
       doc.table(table);
@@ -102,7 +106,12 @@ export class FileService {
     const worksheet = workbook.addWorksheet('Resultados');
 
     worksheet.columns = columns.map((col) => ({ header: col, key: col }));
-    rows.forEach((row) => worksheet.addRow(row));
+    rows.forEach((row) => {
+      const sanitizedRow = columns.map((col) =>
+        row[col] !== null && row[col] !== undefined ? row[col] : '',
+      );
+      worksheet.addRow(sanitizedRow);
+    });
 
     const buffer: any = await workbook.xlsx.writeBuffer();
     return Buffer.from(buffer);
@@ -118,8 +127,6 @@ export class FileService {
     if (!templateData) {
       throw new Error(`Template with id ${templateId} not found`);
     }
-
-    //const imageBuffer = Buffer.from(templateData.logo, 'base64');
 
     const doc = new Document({
       sections: [
@@ -157,7 +164,9 @@ export class FileService {
                     new TableRow({
                       children: columns.map((col) => {
                         let value = row[col];
-                        if (typeof value !== 'string') {
+                        if (value === null || value === undefined) {
+                          value = '';
+                        } else if (typeof value !== 'string') {
                           value = String(value);
                         }
                         return new TableCell({

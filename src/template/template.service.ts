@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateTemplateDto } from './dto/create-template.dto';
 import { UpdateTemplateDto } from './dto/update-template.dto';
 import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
-import { Template } from './entities/template.entity';
+import { Template } from '../common/entities/Template';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -13,8 +13,8 @@ export class TemplateService {
   ) {}
 
   async create(createTemplateDto: CreateTemplateDto) {
-    const template = this.templateRepository.create(createTemplateDto)
-     return await this.templateRepository.save(template);
+    const template = this.templateRepository.create(createTemplateDto);
+    return await this.templateRepository.save(template);
   }
 
   async getTemplate(id: number): Promise<Template> {
@@ -26,7 +26,7 @@ export class TemplateService {
   }
 
   async update(id: number, updateTemplateDto: UpdateTemplateDto) {
-    return await this.templateRepository.update(id,updateTemplateDto);
+    return await this.templateRepository.update(id, updateTemplateDto);
   }
 
   async remove(id: number) {
