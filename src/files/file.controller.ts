@@ -1,8 +1,11 @@
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { SqlExecutorService } from 'src/sql/sqlexecutor.service';
 import { FileService } from './file.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('file')
+@ApiTags('File')
+@Controller('auth')
 export class FileController {
   constructor(
     private readonly sqlExecutorService: SqlExecutorService,
