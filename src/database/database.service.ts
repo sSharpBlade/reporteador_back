@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { DatabaseConnection } from './database.entity';
+import { DatabaseConnection } from '../common/entities/database.entity';
 import { createConnection, Connection } from 'typeorm';
 
 @Injectable()
@@ -20,15 +20,14 @@ export class DatabaseService {
 
     return createConnection({
       name: `dynamic_connection_${id}`,
-      type: 'postgres',
+      type: connectionInfo.type as 'postgres' | 'mysql',
       host: connectionInfo.host,
       port: connectionInfo.port,
       username: connectionInfo.username,
       password: connectionInfo.password,
       database: connectionInfo.database,
       synchronize: true,
-      ssl: connectionInfo.ssl,
-      extra: connectionInfo.ssl ? { ssl: { rejectUnauthorized: false } } : null,
+      ssl: connectionInfo.ssl as false | true,
     });
   }
 }
