@@ -1,5 +1,5 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { RoleUser } from './RoleUser';
+
 
 // @Index("users_pkey", ["idUser"], { unique: true })
 @Entity('users', { schema: 'public' })
@@ -19,6 +19,4 @@ export class Users {
   @Column('boolean', { name: 'status_active' })
   statusActive: boolean;
 
-  @OneToMany(() => RoleUser, (roleUser) => roleUser.idUser)
-  roleUsers: RoleUser[];
 }

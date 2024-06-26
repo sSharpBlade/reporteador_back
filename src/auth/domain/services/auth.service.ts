@@ -36,9 +36,9 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
-    const roles = user.roleUsers.map((roleUser) => roleUser.idRole.nameRole);
+  
 
-    const payload = { email: user.email, roles };
+    const payload = { email: user.email };
 
     const token = await this.jwtService.signAsync(payload);
 
