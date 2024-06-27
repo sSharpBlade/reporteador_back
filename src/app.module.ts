@@ -1,3 +1,4 @@
+import { DatabaseModule } from './database/database.module';
 import { FileModule } from './files/file.module';
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
@@ -9,6 +10,7 @@ import { TemplateModule } from './template/template.module';
 
 @Module({
   imports: [
+        DatabaseModule, 
     FileModule,
     ConfigModule.forRoot({
       isGlobal: true,
