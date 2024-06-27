@@ -1,4 +1,4 @@
-import { Column, Entity, Index, OneToMany } from 'typeorm';
+import { Column, DeleteDateColumn, Entity, Index, OneToMany } from 'typeorm';
 import { RoleUser } from './RoleUser.entity';
 
 // @Index("users_pkey", ["idUser"], { unique: true })
@@ -18,6 +18,9 @@ export class Users {
 
   @Column('boolean', { name: 'status_active' })
   statusActive: boolean;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   @OneToMany(() => RoleUser, (roleUser) => roleUser.idUser)
   roleUsers: RoleUser[];
