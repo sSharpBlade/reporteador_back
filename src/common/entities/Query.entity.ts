@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 // import { Server } from './Server';
 // import { Template } from './Template';
@@ -8,7 +9,7 @@ import {
 // @Index("query_pkey", ["idQuery"], { unique: true })
 @Entity('query', { schema: 'public' })
 export class Query {
-  @Column('integer', { primary: true, name: 'id_query' })
+  @PrimaryGeneratedColumn()
   idQuery: number;
 
   @Column('character varying', { name: 'sentence' })
