@@ -17,7 +17,7 @@ import {
 } from '@nestjs/swagger';
 import { Auth } from '../../../auth/application/Decorators/auth.decorator';
 
-@ApiTags('Usuarios')
+@ApiTags('Users')
 @ApiBearerAuth()
 @ApiUnauthorizedResponse({
   description: 'Unauthorized Bearer Auth',
