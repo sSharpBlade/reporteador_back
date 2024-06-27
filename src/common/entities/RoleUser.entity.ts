@@ -1,6 +1,6 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
-import { Role } from "./Role";
-import { Users } from "./Users";
+import { Role } from "./Role.entity";
+import { Users } from "./Users.entity";
 
 // @Index("role_user_pkey", ["idRolu"], { unique: true })
 @Entity("role_user", { schema: "public" })

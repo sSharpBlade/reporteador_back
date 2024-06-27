@@ -1,5 +1,5 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { RoleUser } from './RoleUser';
+import { RoleUser } from './RoleUser.entity';
 
 // @Index("users_pkey", ["idUser"], { unique: true })
 @Entity('users', { schema: 'public' })

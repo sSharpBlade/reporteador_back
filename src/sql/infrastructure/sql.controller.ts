@@ -1,10 +1,11 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { SqlExecutorService } from '../domain/sqlexecutor.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { SqlDto } from '../application/sql.dto';
 
 @Controller('sql')
 @ApiTags('SQL')
+@ApiBearerAuth()
 export class SqlController {
   constructor(private readonly sqlExecutorService: SqlExecutorService) {}
 
