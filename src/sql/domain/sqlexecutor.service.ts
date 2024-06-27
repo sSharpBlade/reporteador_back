@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from 'src/database/database.service';
+import { DatabaseService } from '../../database/domain/database.service';
 import { Connection } from 'typeorm';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { SqlExecutorService } from './sqlexecutor.service';
+import { SqlExecutorService } from '../domain/sqlexecutor.service';
 import { ApiTags } from '@nestjs/swagger';
-import { SqlDto } from './sql.dto';
+import { SqlDto } from '../application/sql.dto';
 
 @Controller('sql')
 @ApiTags('SQL')

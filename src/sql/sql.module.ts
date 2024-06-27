@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConnection } from 'src/common/entities/database.entity';
-import { DatabaseService } from 'src/database/database.service';
-import { SqlExecutorService } from './sqlexecutor.service';
-import { SqlController } from './sql.controller';
+import { DatabaseService } from '../database/domain/database.service';
+import { SqlExecutorService } from './domain/sqlexecutor.service';
+import { SqlController } from './infrastructure/sql.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([DatabaseConnection])],
