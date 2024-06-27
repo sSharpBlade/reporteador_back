@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { TemplateService } from './template.service';
-import { CreateTemplateDto } from './dto/create-template.dto';
-import { UpdateTemplateDto } from './dto/update-template.dto';
+import { CreateTemplateDto } from '../application/dto/create-template.dto';
+import { UpdateTemplateDto } from '../application/dto/update-template.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('template')
