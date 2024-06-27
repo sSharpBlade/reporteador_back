@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Res } from '@nestjs/common';
-import { SqlExecutorService } from 'src/sql/domain/sqlexecutor.service';
+import { SqlExecutorService } from '../../sql/domain/sqlexecutor.service';
 import { FileService } from '../domain/file.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { FileDto } from '../application/dto/file.dto';

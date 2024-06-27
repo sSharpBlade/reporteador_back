@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { DatabaseConnection } from 'src/common/entities/database.entity';
+import { DatabaseConnection } from '../../common/entities/database.entity';
 import { createConnection, Connection } from 'typeorm';
 
 @Injectable()

@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { TemplateService } from './template.service';
+import { TemplateService } from '../domain/template.service';
 import { CreateTemplateDto } from '../application/dto/create-template.dto';
 import { UpdateTemplateDto } from '../application/dto/update-template.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
