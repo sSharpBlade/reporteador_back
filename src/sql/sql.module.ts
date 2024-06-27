@@ -14,4 +14,4 @@ import { Query } from '../common/entities/Query.entity';
   controllers: [SqlController],
   exports: [SqlExecutorService],
 })
-export class SqlModule {}
+export class SqlModule {}
