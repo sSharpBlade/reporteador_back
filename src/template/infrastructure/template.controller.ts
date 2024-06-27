@@ -11,10 +11,12 @@ import { TemplateService } from '../domain/template.service';
 import { CreateTemplateDto } from '../application/dto/create-template.dto';
 import { UpdateTemplateDto } from '../application/dto/update-template.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Auth } from '../../auth/application/Decorators/auth.decorator';
 
 @Controller('template')
 @ApiTags('Template')
 @ApiBearerAuth()
+@Auth()
 export class TemplateController {
   constructor(private readonly templateService: TemplateService) {}
 

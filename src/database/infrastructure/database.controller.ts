@@ -3,10 +3,12 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { DatabaseService } from '../domain/database.service';
 import { CreateDataBaseDto } from '../application/create-database.dto';
 import { UpdateDataBaseDto } from '../application/update-database.dto';
+import { Auth } from '../../auth/application/Decorators/auth.decorator';
 
 @Controller('database')
 @ApiTags('DataBase')
 @ApiBearerAuth()
+@Auth()
 export class DatabaseController {
     constructor (private readonly dataBaseService:DatabaseService){}
 

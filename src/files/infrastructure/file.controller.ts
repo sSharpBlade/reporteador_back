@@ -3,10 +3,12 @@ import { SqlExecutorService } from '../../sql/domain/sqlexecutor.service';
 import { FileService } from '../domain/file.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { FileDto } from '../application/dto/file.dto';
+import { Auth } from '../../auth/application/Decorators/auth.decorator';
 
 @Controller('file')
 @ApiTags('File')
 @ApiBearerAuth()
+@Auth()
 export class FileController {
   constructor(
     private readonly sqlExecutorService: SqlExecutorService,

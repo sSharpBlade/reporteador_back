@@ -10,21 +10,19 @@ import {
 import { UsersService } from '../../domain/services/users.service';
 import { CreateUserDto } from '../../application/dto/create-user.dto';
 import { UpdateUserDto } from '../../application/dto/update-user.dto';
-import { Auth } from '../../../auth/application/Decorators/auth.decorator';
-import { Role } from '../../../common/enums/role.enum';
 import {
   ApiBearerAuth,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { Auth } from '../../../auth/application/Decorators/auth.decorator';
 
 @ApiTags('Usuarios')
 @ApiBearerAuth()
 @ApiUnauthorizedResponse({
   description: 'Unauthorized Bearer Auth',
 })
-@Auth(Role.ADMIN)
-
+@Auth()
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
