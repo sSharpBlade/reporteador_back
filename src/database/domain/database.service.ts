@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DatabaseConnection } from '../../common/entities/database.entity';
 import { createConnection, Connection } from 'typeorm';
+import { CreateDataBaseDto } from '../application/create-database.dto';
+import { UpdateDataBaseDto } from '../application/update-database.dto';
 
 @Injectable()
 export class DatabaseService {
@@ -30,4 +32,26 @@ export class DatabaseService {
       ssl: connectionInfo.ssl as false | true,
     });
   }
+
+  async create(createDatabaseDto: CreateDataBaseDto) {
+    const connection = this.connectionRepository.create(createDatabaseDto);
+    return await this.connectionRepository.save(connection);
+  }
+
+  async getConnection(id: number): Promise<DatabaseConnection> {
+    return this.connectionRepository.findOneBy({ id });
+  }
+
+  async findAll() {
+    return await this.connectionRepository.find();
+  }
+
+  async update(id: number, updateDataBaseDto: UpdateDataBaseDto) {
+    return await this.connectionRepository.update(id, updateDataBaseDto);
+  }
+
+  async remove(id: number) {
+    return await this.connectionRepository.softDelete(id);
+  }
+
 }

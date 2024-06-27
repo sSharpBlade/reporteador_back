@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn } from 'typeorm';
 
 @Entity()
 export class DatabaseConnection {
@@ -25,4 +25,7 @@ export class DatabaseConnection {
 
   @Column({ default: false })
   ssl: boolean;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 }
