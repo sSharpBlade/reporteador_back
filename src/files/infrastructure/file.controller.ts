@@ -1,8 +1,8 @@
 import { Controller, Post, Body, Res } from '@nestjs/common';
-import { SqlExecutorService } from 'src/sql/sqlexecutor.service';
-import { FileService } from './file.service';
+import { SqlExecutorService } from 'src/sql/domain/sqlexecutor.service';
+import { FileService } from '../domain/file.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { FileDto } from './dto/file.dto';
+import { FileDto } from '../application/dto/file.dto';
 
 @Controller('file')
 @ApiTags('File')

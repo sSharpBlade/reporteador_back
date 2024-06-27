@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TemplateService } from 'src/template/template.service';
+import { TemplateService } from '../../template/domain/template.service';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const PDFDocument = require('pdfkit-table');
 import * as ExcelJS from 'exceljs';
