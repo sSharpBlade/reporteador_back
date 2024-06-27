@@ -10,6 +10,11 @@ export class SqlExecutorService {
     connectionId: number,
     query: string,
   ): Promise<{ columns: string[]; rows: any[] }> {
+
+    if (!query.trim().toUpperCase().startsWith('SELECT')) {
+      throw new Error('Solo consultas SELECT')
+    }
+
     const connection: Connection =
       await this.databaseService.getDatabaseConnection(connectionId);
 
