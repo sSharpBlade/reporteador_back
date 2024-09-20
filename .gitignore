@@ -3,6 +3,11 @@
 /node_modules
 /build
 
+/postgresql_data
+/sonarqube_data
+/sonarqube_logs
+/sonarqube_extensions
+
 # Logs
 logs
 *.log
